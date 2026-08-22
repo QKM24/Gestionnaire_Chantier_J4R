@@ -24,7 +24,7 @@ class AppFixtures extends Fixture
 
         $chantier1 = (new Chantier())
             ->setNom('Rénovation Façade')
-            ->setAdresse('12 rue des Lilas, Tunis')
+            ->setAdresse('12 rue des Lilas, 75011 Paris')
             ->setDateDebut(new \DateTime('2026-06-01'))
             ->setDateFin(new \DateTime('2026-09-01'))
             ->setStatut(StatutChantier::EN_COURS);
@@ -32,8 +32,8 @@ class AppFixtures extends Fixture
         $chantier1->addEquipement($compresseur);
 
         $chantier2 = (new Chantier())
-            ->setNom('Construction Villa El Manar')
-            ->setAdresse('45 avenue Habib Bourguiba, Tunis')
+            ->setNom('Construction Villa Neuilly')
+            ->setAdresse('45 avenue Charles de Gaulle, 92200 Neuilly-sur-Seine')
             ->setDateDebut(new \DateTime('2026-03-15'))
             ->setDateFin(new \DateTime('2026-12-15'))
             ->setStatut(StatutChantier::EN_ATTENTE);
@@ -43,7 +43,7 @@ class AppFixtures extends Fixture
 
         $chantier3 = (new Chantier())
             ->setNom('Réfection Toiture Immeuble B')
-            ->setAdresse('3 rue de Marseille, Tunis')
+            ->setAdresse('3 rue de Marseille, 69001 Lyon')
             ->setDateDebut(new \DateTime('2026-01-10'))
             ->setDateFin(new \DateTime('2026-02-20'))
             ->setStatut(StatutChantier::TERMINE);
