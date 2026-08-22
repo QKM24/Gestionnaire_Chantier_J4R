@@ -1,0 +1,72 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des chantiers{% endblock %}
+
+{% block body %}
+    <h1 class="mb-4">Liste des chantiers</h1>
+
+    <div id="alert-zone"></div>
+
+    <div class="row g-3" id="chantiers-list">
+        {% for chantier in chantiers %}
+            <div class="col-12" id="chantier-{{ chantier.id }}">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-start flex-wrap gap-2">
+                            <div>
+                                <h5 class="card-title mb-1">{{ chantier.nom }}</h5>
+                                <p class="card-text text-muted mb-1">{{ chantier.adresse }}</p>
+                                <p class="card-text text-muted mb-2">
+                                    Début : {{ chantier.dateDebut|date('d/m/Y') }} —
+                                    Fin prévue : {{ chantier.dateFin|date('d/m/Y') }}
+                                </p>
+
+                                {% if chantier.equipements|length > 0 %}
+                                    <div class="mb-2">
+                                        {% for equipement in chantier.equipements %}
+                                            <span class="badge bg-secondary me-1">
+                                                {{ equipement.nom }} (x{{ equipement.quantite }})
+                                            </span>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    <p class="text-muted fst-italic mb-2">Aucun équipement assigné</p>
+                                {% endif %}
+                            </div>
+
+                            <div class="text-end">
+                                <span
+                                    class="badge fs-6 statut-badge
+                                        {% if chantier.statut.value == 'Terminé' %}bg-success
+                                        {% elseif chantier.statut.value == 'En cours' %}bg-primary
+                                        {% else %}bg-warning text-dark{% endif %}"
+                                    data-statut-badge="{{ chantier.id }}"
+                                >
+                                    {{ chantier.statut.value }}
+                                </span>
+
+                                <div class="mt-2">
+                                    {% if chantier.statut.value != 'Terminé' %}
+                                        <button
+                                            type="button"
+                                            class="btn btn-sm btn-outline-success btn-terminer"
+                                            data-id="{{ chantier.id }}"
+                                        >
+                                            Marquer comme terminé
+                                        </button>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% else %}
+            <p class="text-muted">Aucun chantier enregistré pour le moment.</p>
+        {% endfor %}
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('js/app.js') }}"></script>
+{% endblock %}
