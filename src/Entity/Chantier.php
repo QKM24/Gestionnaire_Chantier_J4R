@@ -32,12 +32,6 @@ class Chantier
     #[ORM\Column(length: 20, enumType: StatutChantier::class)]
     private ?StatutChantier $statut = StatutChantier::EN_ATTENTE;
 
-    /**
-     * Un chantier nécessite plusieurs équipement, et un équipement
-     * peut être utilisé pour plusieurs chantiers. C'est une relation ManyToMany.
-     * "Chantier" est propriétaire de la relation, c'est lui qui contient la liste des équipements (inversedBy).
-     */
-
     #[ORM\ManyToMany(targetEntity: Equipement::class, inversedBy: 'chantiers')]
     #[ORM\JoinTable(name: 'chantier_equipement')]
     private Collection $equipements;
@@ -88,6 +82,18 @@ class Chantier
         return $this;
     }
 
+    public function getDateFin(): ?\DateTimeInterface
+    {
+        return $this->dateFin;
+    }
+
+    public function setDateFin(\DateTimeInterface $dateFin): self
+    {
+        $this->dateFin = $dateFin;
+
+        return $this;
+    }
+
     public function getStatut(): ?StatutChantier
     {
         return $this->statut;
@@ -115,7 +121,7 @@ class Chantier
         }
 
         return $this;
-    }   
+    }
 
     public function removeEquipement(Equipement $equipement): self
     {
@@ -123,5 +129,4 @@ class Chantier
 
         return $this;
     }
-
- }
+}
